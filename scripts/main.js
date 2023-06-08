@@ -83,13 +83,6 @@ class GameBasics {
   }
 }
 
-
-
-
-
-
-
-
 function gameLoop(play) {
   let presentPosition = play.presentPosition();
 
