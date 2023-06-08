@@ -12,81 +12,83 @@ function resize() {
 }
 window.addEventListener('load', resize, false);
 
-function GameBasics(canvas) {
-  this.width = canvas.width;
-  this.height = canvas.height;
+class GameBasics {
+  constructor(canvas) {
+    this.width = canvas.width;
+    this.height = canvas.height;
 
-  this.playBoundaries = {
-    top: 150,
-    bottom: 650,
-    left: 100,
-    right: 800
-  };
+    this.playBoundaries = {
+      top: 150,
+      bottom: 650,
+      left: 100,
+      right: 800
+    };
 
-  this.level = 1;
-  this.score = 0;
-  this.shields = 2;
+    this.level = 1;
+    this.score = 0;
+    this.shields = 2;
 
-  this.setting = {  
-    updateSeconds: (1 / 60),
-    fighterSpeed: 200,
+    this.setting = {
+      updateSeconds: (1 / 60),
+      fighterSpeed: 200,
 
-    bulletSpeed: 130,
-    bulletMaxFrequency: 500,
- 	
-    enemyLines: 4,
-    enemyColumns: 8,
-    enemySpeed: 35,
-    enemySinkingValue: 30,
-    
-    bombSpeed: 75,
-    bombFrequency: 0.05,
-    
-    pointsPerEnemy: 25,
-  };
+      bulletSpeed: 130,
+      bulletMaxFrequency: 500,
 
-  this.positionContainer = [];
+      enemyLines: 4,
+      enemyColumns: 8,
+      enemySpeed: 35,
+      enemySinkingValue: 30,
 
-  this.pressedKeys = {};
+      bombSpeed: 75,
+      bombFrequency: 0.05,
+
+      pointsPerEnemy: 25,
+    };
+
+    this.positionContainer = [];
+
+    this.pressedKeys = {};
+  }
+  presentPosition() {
+    return this.positionContainer.length > 0 ? this.positionContainer[this.positionContainer.length - 1] : null;
+  }
+  goToPosition(position) {
+    if (this.presentPosition()) {
+      this.positionContainer.length = 0;
+    }
+    if (position.entry) {
+      position.entry(play);
+    }
+    this.positionContainer.push(position);
+  }
+  pushPosition(position) {
+    this.positionContainer.push(position);
+  }
+  popPosition() {
+    this.positionContainer.pop();
+  }
+  start() {
+    setInterval(function () { gameLoop(play); }, this.setting.updateSeconds * 1000);
+    this.goToPosition(new OpeningPosition());
+  }
+  keyDown(keyboardCode) {
+    this.pressedKeys[keyboardCode] = true;
+    if (this.presentPosition() && this.presentPosition().keyDown) {
+      this.presentPosition().keyDown(this, keyboardCode);
+    }
+  }
+  keyUp(keyboardCode) {
+    delete this.pressedKeys[keyboardCode];
+  }
 }
 
-GameBasics.prototype.presentPosition = function () {
-  return this.positionContainer.length > 0 ? this.positionContainer[this.positionContainer.length - 1] : null;
-};
 
-GameBasics.prototype.goToPosition = function (position) {
-  if (this.presentPosition()) {
-    this.positionContainer.length = 0;
-  }
-  if (position.entry) {
-    position.entry(play);
-  }
-  this.positionContainer.push(position);
-};
 
-GameBasics.prototype.pushPosition = function (position) {
-  this.positionContainer.push(position);
-};
 
-GameBasics.prototype.popPosition = function () {
-  this.positionContainer.pop();
-};
 
-GameBasics.prototype.start = function () {
-  setInterval(function () { gameLoop(play); }, this.setting.updateSeconds * 1000);
-  this.goToPosition(new OpeningPosition());
-}
 
-GameBasics.prototype.keyDown = function (keyboardCode) {
-  this.pressedKeys[keyboardCode] = true;
-  if (this.presentPosition() && this.presentPosition().keyDown) {
-    this.presentPosition().keyDown(this, keyboardCode);
-  }
-};
 
-GameBasics.prototype.keyUp = function (keyboardCode) {
-  delete this.pressedKeys[keyboardCode];
-};
 
 function gameLoop(play) {
   let presentPosition = play.presentPosition();
