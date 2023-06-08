@@ -55,13 +55,13 @@ class InGamePosition {
         const upSec = this.setting.updateSeconds;
         const bullets = this.bullets;
 
-        if (play.pressedKeys[37]) {
+        if (play.pressedKeys["ArrowLeft"]) {
             fighter.x -= fighterSpeed * upSec;
         }
-        if (play.pressedKeys[39]) {
+        if (play.pressedKeys["ArrowRight"]) {
             fighter.x += fighterSpeed * upSec;
         }
-        if (play.pressedKeys[32]) {
+        if (play.pressedKeys["Space"]) {
             this.shoot();
         }
 
@@ -258,10 +258,10 @@ class InGamePosition {
         }
     }
     keyDown(play, keyboardCode) {
-        if (keyboardCode === 83) {
+        if (keyboardCode === "KeyS") {
             play.sounds.muteSwitch();
         }
-        if (keyboardCode === 80) {
+        if (keyboardCode === "KeyP") {
             play.pushPosition(new PausePosition());
         }
     }
