@@ -23,7 +23,7 @@ class OpeningPosition {
         ctx.fillText("Space : Fire", play.width / 2, play.height / 2 + 340);
     }
     keyDown(play, keyboardCode) {
-        if (keyboardCode === 32) {
+        if (keyboardCode === "Space") {
             play.level = 1;
             play.score = 0;
             play.shields = 2;
