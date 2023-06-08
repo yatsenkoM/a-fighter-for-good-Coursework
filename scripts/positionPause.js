@@ -23,10 +23,10 @@ class PausePosition {
         ctx.fillText("Space : Fire", play.width / 2, play.height / 2 + 10);
     }
     keyDown(play, keyboardCode) {
-        if (keyboardCode === 80) {
+        if (keyboardCode === "KeyP") {
             play.popPosition();
         }
-        if (keyboardCode === 27) {
+        if (keyboardCode === "Escape") {
             play.pushPosition(new GameOverPosition());
         }
     }
