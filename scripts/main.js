@@ -97,13 +97,13 @@ function gameLoop(play) {
 }
 
 window.addEventListener("keydown", function (e) {
-  const keyboardCode = e.which || event.keyCode;
-  if (keyboardCode === 37 || keyboardCode === 39 || keyboardCode === 32) { e.preventDefault(); }
+  const keyboardCode = e.code;
+  if (keyboardCode === "ArrowLeft" || keyboardCode === "ArrowRight" || keyboardCode === "Space") { e.preventDefault(); }
   play.keyDown(keyboardCode);
 });
 
 window.addEventListener("keyup", function (e) {
-  const keyboardCode = e.which || event.keyCode;
+  const keyboardCode = e.code;
   play.keyUp(keyboardCode);
 });
 
