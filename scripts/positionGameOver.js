@@ -17,7 +17,7 @@ class GameOverPosition {
         ctx.fillText("Press 'Space' to continue.", play.width / 2, play.height / 2 + 40);
     }
     keyDown(play, keyboardCode) {
-        if (keyboardCode === 32) {
+        if (keyboardCode === "Space") {
             play.goToPosition(new OpeningPosition());
         }
     }
