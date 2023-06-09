@@ -3,7 +3,7 @@ canvas.width = 900;
 canvas.height = 750;
 const ctx = canvas.getContext('2d');
 
-function resize() {
+const resize = () => {
   const height = window.innerHeight - 20;
   const ratio = canvas.width / canvas.height;
   const width = height * ratio;
@@ -69,7 +69,7 @@ class GameBasics {
     this.positionContainer.pop();
   }
   start() {
-    setInterval(function () { gameLoop(play); }, this.setting.updateSeconds * 1000);
+    setInterval(() => gameLoop(play), this.setting.updateSeconds * 1000);
     this.goToPosition(new OpeningPosition());
   }
   keyDown(keyboardCode) {
@@ -83,7 +83,7 @@ class GameBasics {
   }
 }
 
-function gameLoop(play) {
+const gameLoop = (play) => {
   let presentPosition = play.presentPosition();
 
   if (presentPosition) {
@@ -96,16 +96,13 @@ function gameLoop(play) {
   }
 }
 
-window.addEventListener("keydown", function (e) {
+window.addEventListener("keydown", (e) => {
   const keyboardCode = e.code;
   if (keyboardCode === "ArrowLeft" || keyboardCode === "ArrowRight" || keyboardCode === "Space") { e.preventDefault(); }
   play.keyDown(keyboardCode);
 });
 
-window.addEventListener("keyup", function (e) {
-  const keyboardCode = e.code;
-  play.keyUp(keyboardCode);
-});
+window.addEventListener("keyup", (e) => play.keyUp(e.code));
 
 const play = new GameBasics(canvas);
 play.sounds = new Sounds(); 
