@@ -6,9 +6,9 @@ class OpeningPosition {
         ctx.font = "80px Montserrat";
         ctx.textAlign = "center";
         const gradient = ctx.createLinearGradient((play.width / 2 - 180), (play.height / 2), (play.width / 2 + 180), (play.height / 2));
-        gradient.addColorStop("0", "yellow");
-        gradient.addColorStop("0.5", "red");
-        gradient.addColorStop("1.0", "yellow");
+        gradient.addColorStop(0, "yellow");
+        gradient.addColorStop(0.5, "red");
+        gradient.addColorStop(1.0, "yellow");
         ctx.fillStyle = gradient;
         ctx.fillText("A fighter for good", play.width / 2, play.height / 2 - 70);
 
